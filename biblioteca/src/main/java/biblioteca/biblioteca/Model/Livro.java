@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Livro {
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id")
-    private Long id; //tanto faz ser sequencial ou passar como parametro
+    @Id
+    @Column(name = "ds_isbn", nullable = false, unique = true)
+    @JsonProperty("isbn")
+    private String isbn;
 
     @Column(name = "ds_titulo", nullable = false)
     @JsonProperty("titulo")
@@ -31,5 +31,8 @@ public class Livro {
     @JsonProperty("edicao")
     private String edicao;
 
-    //autor (uma FK para autor)
+    //fk
+    @ManyToOne
+    @JoinColumn(name = "id_autor", nullable = false)
+    private Autor autor;
 }
